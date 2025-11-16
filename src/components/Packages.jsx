@@ -26,6 +26,8 @@ const packages = [
   },
 ];
 
+const luxuryEase = [0.16, 1, 0.3, 1];
+
 export default function Packages() {
   const listRef = useRef(null);
   const [index, setIndex] = useState(0);
@@ -58,47 +60,58 @@ export default function Packages() {
           </div>
         </div>
 
-        {/* Horizontally scrollable list for full functionality across sizes */}
+        {/* Cards list */}
         <div ref={listRef} className="grid gap-6 sm:gap-8">
-          {packages.map((p, i) => (
-            <motion.a
-              href="#booking"
-              onClick={(e)=>{e.preventDefault(); document.querySelector('#booking')?.scrollIntoView({behavior:'smooth'});}}
-              key={i}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="relative overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5 block focus:outline-none focus:ring-2 focus:ring-gray-900"
-            >
-              <img
-                src={p.image}
-                alt={p.title}
-                className="h-64 sm:h-80 w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/10 to-transparent" />
-              <div className="absolute inset-0 flex items-center">
-                <div className="p-6 sm:p-10">
-                  <div className="rounded-full bg-white/90 text-gray-700 text-xs inline-flex px-3 py-1 ring-1 ring-black/5">
-                    {p.label}
-                  </div>
-                  <h4 className="mt-3 text-white text-2xl sm:text-4xl font-semibold max-w-xl">
-                    {p.title}
-                  </h4>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {p.chips.map((c) => (
-                      <span
-                        key={c}
-                        className="rounded-full bg-white/90 text-gray-800 text-xs px-3 py-1 ring-1 ring-black/5"
-                      >
-                        {c}
-                      </span>
-                    ))}
+          {packages.map((p, i) => {
+            return (
+              <motion.a
+                href="#booking"
+                onClick={(e)=>{e.preventDefault(); document.querySelector('#booking')?.scrollIntoView({behavior:'smooth'});}}
+                key={i}
+                initial={{ opacity: 0, x: 46, rotateY: 3, scale: 0.95, transformPerspective: 900 }}
+                whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.9, ease: luxuryEase, delay: i * 0.06 }}
+                whileHover={{ y: -2 }}
+                className="relative overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5 block focus:outline-none focus:ring-2 focus:ring-gray-900"
+              >
+                <motion.img
+                  src={p.image}
+                  alt={p.title}
+                  className="h-64 sm:h-80 w-full object-cover"
+                  initial={{ scale: 1.02, opacity: 0.98 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, ease: luxuryEase }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/10 to-transparent" />
+                <div className="absolute inset-0 flex items-center">
+                  <div className="p-6 sm:p-10">
+                    <div className="rounded-full bg-white/90 text-gray-700 text-xs inline-flex px-3 py-1 ring-1 ring-black/5">
+                      {p.label}
+                    </div>
+                    <h4 className="mt-3 text-white text-2xl sm:text-4xl font-semibold max-w-xl">
+                      {p.title}
+                    </h4>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {p.chips.map((c, idx) => (
+                        <motion.span
+                          key={c}
+                          initial={{ opacity: 0, scale: 0.9, y: 6 }}
+                          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, ease: luxuryEase, delay: idx * 0.05 + 0.1 }}
+                          className="rounded-full bg-white/90 text-gray-800 text-xs px-3 py-1 ring-1 ring-black/5"
+                        >
+                          {c}
+                        </motion.span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.a>
-          ))}
+              </motion.a>
+            );
+          })}
         </div>
 
         {/* Mobile nav buttons */}

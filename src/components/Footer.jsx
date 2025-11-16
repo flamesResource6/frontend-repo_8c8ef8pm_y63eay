@@ -1,4 +1,7 @@
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone } from "lucide-react";
+import { motion } from "framer-motion";
+
+const luxuryEase = [0.16, 1, 0.3, 1];
 
 export default function Footer() {
   const scrollTo = (id) => (e) => {
@@ -7,7 +10,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className="mt-16 bg-gray-950 text-white">
+    <motion.footer
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.9, ease: luxuryEase }}
+      className="mt-16 bg-gray-950 text-white"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-2 sm:grid-cols-4 gap-8">
         <div>
           <h5 className="text-sm font-semibold text-white/80">Explore</h5>
@@ -60,6 +69,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

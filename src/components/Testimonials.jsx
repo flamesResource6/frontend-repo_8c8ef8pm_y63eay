@@ -35,6 +35,8 @@ const testimonials = [
   },
 ];
 
+const luxuryEase = [0.16, 1, 0.3, 1];
+
 export default function Testimonials() {
   const containerRef = useRef(null);
   const [index, setIndex] = useState(0);
@@ -50,9 +52,15 @@ export default function Testimonials() {
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-end justify-between">
-          <h3 className="text-2xl sm:text-3xl font-semibold text-gray-900">
+          <motion.h3
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: luxuryEase }}
+            className="text-2xl sm:text-3xl font-semibold text-gray-900"
+          >
             What Our Travelers Love About Us.
-          </h3>
+          </motion.h3>
           <div className="hidden sm:flex items-center gap-2">
             <button aria-label="Previous" onClick={() => scrollTo(-1)} className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
               <ArrowLeft className="h-5 w-5 text-gray-800" />
@@ -67,17 +75,22 @@ export default function Testimonials() {
             <motion.div
               data-card
               key={i}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: luxuryEase, delay: i * 0.06 }}
+              whileHover={{ y: -3, boxShadow: "0 10px 24px rgba(0,0,0,0.08)" }}
               className="rounded-3xl bg-white p-5 shadow-xl ring-1 ring-black/5 flex flex-col gap-3"
             >
               <div className="flex items-center gap-3">
-                <img
+                <motion.img
                   src={t.avatar}
                   className="h-10 w-10 rounded-full object-cover"
                   alt={t.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, ease: luxuryEase }}
                 />
                 <div>
                   <div className="text-sm font-semibold text-gray-900">{t.name}</div>

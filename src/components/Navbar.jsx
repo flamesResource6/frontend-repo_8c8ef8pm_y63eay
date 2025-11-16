@@ -1,4 +1,7 @@
 import { Menu, Search, Globe, User } from "lucide-react";
+import { motion } from "framer-motion";
+
+const luxuryEase = [0.16, 1, 0.3, 1];
 
 export default function Navbar() {
   const handleScroll = (id) => (e) => {
@@ -12,7 +15,12 @@ export default function Navbar() {
   return (
     <div className="w-full">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mt-4 flex items-center justify-between rounded-2xl bg-white/80 backdrop-blur-md shadow-sm ring-1 ring-black/5 px-4 sm:px-6 py-3">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: luxuryEase }}
+          className="mt-4 flex items-center justify-between rounded-2xl bg-white/80 backdrop-blur-md shadow-sm ring-1 ring-black/5 px-4 sm:px-6 py-3"
+        >
           {/* Left: Logo + Menu */}
           <div className="flex items-center gap-6">
             <a href="#home" onClick={handleScroll('#home')} className="text-2xl font-semibold tracking-tight text-gray-900">Tourist</a>
@@ -58,7 +66,7 @@ export default function Navbar() {
           <a href="#packages" onClick={handleScroll('#packages')} className="md:hidden inline-flex items-center gap-2 rounded-full bg-gray-900 text-white px-4 py-2 text-sm shadow-sm">
             <Menu className="h-4 w-4" /> Menu
           </a>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
