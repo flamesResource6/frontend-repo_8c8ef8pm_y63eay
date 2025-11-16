@@ -1,44 +1,25 @@
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Services from './components/Services'
-import Packages from './components/Packages'
-import FAQ from './components/FAQ'
-import BookingCTA from './components/BookingCTA'
-import Testimonials from './components/Testimonials'
-import Footer from './components/Footer'
+import IglooNavbar from './components/IglooNavbar'
+import ShoeHero from './components/ShoeHero'
+import SceneCollections from './components/SceneCollections'
+import SceneCraftsmanship from './components/SceneCraftsmanship'
+import SceneComfort from './components/SceneComfort'
+import SceneStory from './components/SceneStory'
+import SceneShop from './components/SceneShop'
+import SceneContact from './components/SceneContact'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="pb-16">
-        {/* Navbar pinned to the top */}
-        <Navbar />
-
-        {/* Sections with anchor ids for smooth in-page navigation */}
-        <main>
-          <section id="home">
-            <Hero />
-          </section>
-          <section id="services">
-            <Services />
-          </section>
-          <section id="packages">
-            <Packages />
-          </section>
-          <section id="faq">
-            <FAQ />
-          </section>
-          <section id="booking">
-            <BookingCTA />
-          </section>
-          <section id="testimonials">
-            <Testimonials />
-          </section>
-          {/* Fallback anchor for contact scrolls (footer contains details) */}
-          <div id="contact" />
-        </main>
-      </div>
-      <Footer />
+    <div className="min-h-screen bg-[#2a2a2a] text-white">
+      <IglooNavbar />
+      <main className="[scrollbar-width:none] [-ms-overflow-style:none]">
+        <ShoeHero />
+        <SceneCollections />
+        <SceneCraftsmanship />
+        <SceneComfort />
+        <SceneStory />
+        <SceneShop />
+        <SceneContact />
+      </main>
     </div>
   )
 }
