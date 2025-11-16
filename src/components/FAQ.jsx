@@ -33,7 +33,7 @@ export default function FAQ() {
               <div className="text-xs text-gray-500">{f.n}</div>
               <h4 className="mt-2 text-lg font-semibold text-gray-900">{f.q}</h4>
               <p className="mt-2 text-sm text-gray-600">{f.a}</p>
-              <a href="#" className="mt-4 inline-block text-sm font-medium text-gray-700 hover:text-gray-900">
+              <a href="#contact" onClick={(e)=>{e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'});}} className="mt-4 inline-block text-sm font-medium text-gray-700 hover:text-gray-900">
                 Learn More →
               </a>
             </motion.div>

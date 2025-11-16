@@ -8,6 +8,12 @@ const images = [
 ];
 
 export default function Hero() {
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    const el = document.querySelector('#packages');
+    el?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="pt-6">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -39,16 +45,17 @@ export default function Hero() {
               </h1>
 
               {/* Subscribe */}
-              <div className="mt-6 flex w-full max-w-md items-center rounded-full bg-white/90 shadow-lg ring-1 ring-black/5">
+              <form onSubmit={handleSubscribe} className="mt-6 flex w-full max-w-md items-center rounded-full bg-white/90 shadow-lg ring-1 ring-black/5">
                 <input
                   type="email"
                   placeholder="Enter your email"
                   className="flex-1 bg-transparent px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none"
+                  aria-label="Email address"
                 />
-                <button className="m-1 inline-flex items-center gap-2 rounded-full bg-gray-900 px-5 py-2.5 text-sm font-medium text-white shadow-md hover:bg-black transition">
+                <button type="submit" className="m-1 inline-flex items-center gap-2 rounded-full bg-gray-900 px-5 py-2.5 text-sm font-medium text-white shadow-md hover:bg-black transition">
                   Subscribe <ChevronRight className="h-4 w-4" />
                 </button>
-              </div>
+              </form>
             </div>
 
             {/* Floating slider */}

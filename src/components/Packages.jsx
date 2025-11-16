@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
@@ -26,6 +27,18 @@ const packages = [
 ];
 
 export default function Packages() {
+  const listRef = useRef(null);
+  const [index, setIndex] = useState(0);
+
+  const scrollTo = (dir) => {
+    const next = Math.max(0, Math.min(packages.length - 1, index + dir));
+    setIndex(next);
+    const el = listRef.current?.children?.[next];
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    }
+  };
+
   return (
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -36,24 +49,27 @@ export default function Packages() {
             </h3>
           </div>
           <div className="hidden sm:flex items-center gap-2">
-            <button className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
+            <button aria-label="Previous" onClick={() => scrollTo(-1)} className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
               <ArrowLeft className="h-5 w-5 text-gray-800" />
             </button>
-            <button className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
+            <button aria-label="Next" onClick={() => scrollTo(1)} className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
               <ArrowRight className="h-5 w-5 text-gray-800" />
             </button>
           </div>
         </div>
 
-        <div className="grid gap-6">
+        {/* Horizontally scrollable list for full functionality across sizes */}
+        <div ref={listRef} className="grid gap-6 sm:gap-8">
           {packages.map((p, i) => (
-            <motion.div
+            <motion.a
+              href="#booking"
+              onClick={(e)=>{e.preventDefault(); document.querySelector('#booking')?.scrollIntoView({behavior:'smooth'});}}
               key={i}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="relative overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5"
+              className="relative overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-black/5 block focus:outline-none focus:ring-2 focus:ring-gray-900"
             >
               <img
                 src={p.image}
@@ -81,8 +97,18 @@ export default function Packages() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
+        </div>
+
+        {/* Mobile nav buttons */}
+        <div className="mt-6 flex sm:hidden items-center justify-center gap-3">
+          <button aria-label="Previous" onClick={() => scrollTo(-1)} className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
+            <ArrowLeft className="h-5 w-5 text-gray-800" />
+          </button>
+          <button aria-label="Next" onClick={() => scrollTo(1)} className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
+            <ArrowRight className="h-5 w-5 text-gray-800" />
+          </button>
         </div>
       </div>
     </section>

@@ -21,9 +21,9 @@ export default function Services() {
             that feel effortless and unforgettable. Sit back while we handle the
             details.
           </p>
-          <button className="mt-6 inline-flex items-center rounded-full bg-gray-900 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-black">
-            Learn more
-          </button>
+          <a href="#packages" className="mt-6 inline-flex items-center rounded-full bg-gray-900 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-black" onClick={(e)=>{e.preventDefault(); document.querySelector('#packages')?.scrollIntoView({behavior:'smooth'});}}>
+            Explore packages
+          </a>
         </motion.div>
 
         {/* Right Image Card */}
@@ -53,7 +53,7 @@ export default function Services() {
                   <p className="text-xs text-gray-500">Concierge service, 24/7</p>
                 </div>
               </div>
-              <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-900">
+              <a href="#contact" onClick={(e)=>{e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({behavior:'smooth'});}} className="text-sm font-medium text-gray-700 hover:text-gray-900">
                 Learn More →
               </a>
             </div>

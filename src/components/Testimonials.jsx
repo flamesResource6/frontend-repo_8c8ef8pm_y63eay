@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
@@ -35,6 +36,16 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const containerRef = useRef(null);
+  const [index, setIndex] = useState(0);
+
+  const scrollTo = (dir) => {
+    const next = Math.max(0, Math.min(testimonials.length - 1, index + dir));
+    setIndex(next);
+    const el = containerRef.current?.querySelectorAll('[data-card]')[next];
+    el?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+  };
+
   return (
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -43,17 +54,18 @@ export default function Testimonials() {
             What Our Travelers Love About Us.
           </h3>
           <div className="hidden sm:flex items-center gap-2">
-            <button className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
+            <button aria-label="Previous" onClick={() => scrollTo(-1)} className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
               <ArrowLeft className="h-5 w-5 text-gray-800" />
             </button>
-            <button className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
+            <button aria-label="Next" onClick={() => scrollTo(1)} className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
               <ArrowRight className="h-5 w-5 text-gray-800" />
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           {testimonials.map((t, i) => (
             <motion.div
+              data-card
               key={i}
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -75,6 +87,16 @@ export default function Testimonials() {
               <p className="text-sm text-gray-700 leading-relaxed">{t.text}</p>
             </motion.div>
           ))}
+        </div>
+
+        {/* Mobile nav buttons */}
+        <div className="mt-6 flex sm:hidden items-center justify-center gap-3">
+          <button aria-label="Previous" onClick={() => scrollTo(-1)} className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
+            <ArrowLeft className="h-5 w-5 text-gray-800" />
+          </button>
+          <button aria-label="Next" onClick={() => scrollTo(1)} className="rounded-full p-2 bg-white shadow ring-1 ring-black/5">
+            <ArrowRight className="h-5 w-5 text-gray-800" />
+          </button>
         </div>
       </div>
     </section>

@@ -4,6 +4,12 @@ export default function BookingCTA() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 600], [0, -40]);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    const el = document.querySelector('#contact');
+    el?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -22,9 +28,9 @@ export default function BookingCTA() {
               <p className="mt-3 text-white/80 max-w-2xl mx-auto">
                 Limited-time offers on handpicked escapes. Reserve your spot and let the anticipation begin.
               </p>
-              <button className="mt-6 inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-medium text-gray-900 shadow hover:bg-gray-100">
+              <a href="#contact" onClick={handleClick} className="mt-6 inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-medium text-gray-900 shadow hover:bg-gray-100">
                 Let’s Go…
-              </button>
+              </a>
             </div>
           </div>
         </motion.div>
